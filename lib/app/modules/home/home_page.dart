@@ -1,68 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:asuka/snackbars/asuka_snack_bar.dart';
+
+import 'package:job_timer/app/modules/home/widgets/project_tile.dart';
+import 'package:job_timer/app/modules/home/controller/home_controller.dart';
 import 'package:job_timer/app/modules/home/widgets/header_projects_menu.dart';
-/* import 'package:flutter_modular/flutter_modular.dart';
-import 'package:job_timer/app/core/database/database.dart';
-import 'package:job_timer/app/entities/project.dart';
-import 'package:job_timer/app/entities/project_status.dart'; */
+import 'package:job_timer/app/view_models/project_model.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final HomeController controller;
+
+  const HomePage({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer:
-          const Drawer(child: SafeArea(child: ListTile(title: Text('Sair')))),
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            const SliverAppBar(
+    return BlocListener<HomeController, HomeState>(
+      bloc: controller,
+      listener: (context, state) {
+        if (state.status == HomeStatus.failure) {
+          AsukaSnackbar.alert('Error ao carregar projetos').show();
+        }
+      },
+      child: Scaffold(
+        drawer: const Drawer(
+          child: SafeArea(
+            child: ListTile(
+              title: Text('Sair'),
+            ),
+          ),
+        ),
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              const SliverAppBar(
                 title: Text('Projetos'),
                 expandedHeight: 100,
                 toolbarHeight: 100,
                 centerTitle: true,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(30),
-                ))),
-//          SliverToBoxAdapter(child: Container(color: Colors.red, height: 150)),
-            SliverPersistentHeader(
-              delegate: HeaderProjectsMenu(),
-              pinned: true,
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              Container(color: Colors.blue, height: 150),
-              Container(color: Colors.blue, height: 150),
-              Container(color: Colors.blue, height: 150),
-              Container(color: Colors.blue, height: 150),
-              Container(color: Colors.blue, height: 150),
-              Container(color: Colors.blue, height: 150, child: Text('fim')),
-            ]))
-          ],
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(15),
+                  ),
+                ),
+              ),
+              SliverPersistentHeader(
+                delegate: HeaderProjectsMenu(controller: controller),
+                pinned: true,
+              ),
+              BlocSelector<HomeController, HomeState, bool>(
+                  bloc: controller,
+                  selector: (state) => state.status == HomeStatus.loading,
+                  builder: (context, show) {
+                    return SliverVisibility(
+                      visible: show,
+                      sliver: const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 50,
+                          child: Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+              BlocSelector<HomeController, HomeState, List<ProjectModel>>(
+                bloc: controller,
+                selector: (state) => state.projects,
+                builder: (context, projects) {
+                  return SliverList(
+                    delegate: SliverChildListDelegate(
+                      projects
+                          .map(
+                            (project) => ProjectTile(projectModel: project),
+                          )
+                          .toList(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-/* children: [
-          Container(),
-          ElevatedButton(
-            onPressed: () async {
-              /* final db = Modular.get<Database>();
-              final connection = await db.openConnection();
-              await connection.writeTxn((isar) => connection.clear());
-              connection.writeTxn((isar) {
-                var project = Project();
-                project.name = 'Projeto Teste';
-                project.status = ProjectStatus.em_andamento;
-                //project.status = ProjectStatus.finalizado;
-                return connection.projects.put(project);
-              }); */
-            },
-            style: ElevatedButton.styleFrom(primary: Colors.blue[800]),
-            child: const Text('Cadastrar'),
-          ),
-        ], */

@@ -1,7 +1,8 @@
 import 'package:isar/isar.dart';
-import 'package:job_timer/app/core/database/project_task.dart';
 import 'package:job_timer/app/entities/converters/project_status_converter.dart';
-import 'package:job_timer/app/entities/project_status.dart';
+import 'package:job_timer/app/entities/project_task.dart';
+
+import 'project_status.dart';
 
 part 'project.g.dart';
 
@@ -9,8 +10,11 @@ part 'project.g.dart';
 class Project {
   @Id()
   int? id;
+
   late String name;
-  @ProjectStatusConverter()
+  late int estimate;
+
+  @ProjectTatusConverter()
   late ProjectStatus status;
 
   final tasks = IsarLinks<ProjectTask>();

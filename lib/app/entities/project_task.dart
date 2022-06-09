@@ -1,4 +1,5 @@
 import 'package:isar/isar.dart';
+
 part 'project_task.g.dart';
 
 @Collection()

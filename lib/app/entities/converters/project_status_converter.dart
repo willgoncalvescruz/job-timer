@@ -1,12 +1,13 @@
-import 'package:job_timer/app/entities/project_status.dart';
 import 'package:isar/isar.dart';
 
-class ProjectStatusConverter extends TypeConverter<ProjectStatus, int> {
-  const ProjectStatusConverter();
+import '../project_status.dart';
+
+class ProjectTatusConverter extends TypeConverter<ProjectStatus, int> {
+  const ProjectTatusConverter();
 
   @override
   ProjectStatus fromIsar(int object) {
-    return ProjectStatus.values[object];
+    return ProjectStatus.values.elementAt(object);
   }
 
   @override

@@ -1,6 +1,10 @@
 part of 'login_controller.dart';
 
-enum LoginStatus { initial, loading, failure }
+enum LoginStatus {
+  initial,
+  loading,
+  failure,
+}
 
 class LoginState extends Equatable {
   final LoginStatus status;

@@ -1,8 +1,8 @@
 import 'package:isar/isar.dart';
-import 'package:job_timer/app/core/database/project_task.dart';
-import 'package:job_timer/app/entities/project.dart';
+import 'package:job_timer/app/entities/project_task.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../entities/project.dart';
 import './database.dart';
 
 class DatabaseImpl implements Database {
@@ -18,6 +18,7 @@ class DatabaseImpl implements Database {
         inspector: true,
       );
     }
+
     return _databaseInstance!;
   }
 }

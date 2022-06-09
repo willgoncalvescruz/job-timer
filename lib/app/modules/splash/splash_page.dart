@@ -13,6 +13,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    //Modular.get<AuthService>().signOut();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         Modular.to.navigate('/login');

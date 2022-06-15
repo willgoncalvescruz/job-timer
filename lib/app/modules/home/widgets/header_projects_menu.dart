@@ -48,7 +48,7 @@ class HeaderProjectsMenu extends SliverPersistentHeaderDelegate {
                         ),
                       )
                       .toList(),
-                  onChanged: (ProjectStatus? status) {
+                  onChanged: (status) {
                     if (status != null) {
                       controller.filter(status);
                     }

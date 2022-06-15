@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -66,10 +65,12 @@ class LoginPage extends StatelessWidget {
                     return Visibility(
                       visible: show,
                       child: const Padding(
-                        padding: EdgeInsets.only(top: 15.0),
+                        padding: EdgeInsets.only(top: 30.0),
                         child: Center(
-                          child: CircularProgressIndicator.adaptive(
-                            backgroundColor: Colors.white,
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.transparent,
+                            color: Colors.white,
+                            strokeWidth: 8,
                           ),
                         ),
                       ),

@@ -37,6 +37,7 @@ class HomeState extends Equatable {
     );
   }
 
+////obs
   @override
   List<Object?> get props => [projects, status, projectFilter];
 }

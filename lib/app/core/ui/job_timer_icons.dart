@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/JobTimerIcons.ttf
 ///
-/// 
+///
 /// * Font Awesome 4, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
 ///         License:   SIL ()
@@ -23,12 +23,14 @@
 ///
 import 'package:flutter/widgets.dart';
 
-class JobTimerIcons {
-  JobTimerIcons._();
+class JobTimericons {
+  JobTimericons._();
 
   static const _kFontFam = 'JobTimerIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData ok_circled2 = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData angle_double_right = IconData(0xf101, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData ok_circled2 =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData angle_double_right =
+      IconData(0xf101, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

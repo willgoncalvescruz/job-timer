@@ -50,9 +50,9 @@ class HomePage extends StatelessWidget {
               BlocSelector<HomeController, HomeState, bool>(
                   bloc: controller,
                   selector: (state) => state.status == HomeStatus.loading,
-                  builder: (context, show) {
+                  builder: (context, showLoading) {
                     return SliverVisibility(
-                      visible: show,
+                      visible: showLoading,
                       sliver: const SliverToBoxAdapter(
                         child: SizedBox(
                           height: 50,

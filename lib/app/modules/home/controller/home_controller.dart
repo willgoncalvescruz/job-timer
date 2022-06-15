@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:job_timer/app/entities/project_status.dart';
-import 'package:job_timer/app/modules/services/projects/project_service.dart';
+import 'package:job_timer/app/services/projects/project_service.dart';
 import 'package:job_timer/app/view_models/project_model.dart';
 
 part 'home_state.dart';
@@ -36,4 +36,6 @@ class HomeController extends Cubit<HomeState> {
       projectFilter: status,
     ));
   }
+
+  void updateList() => filter(state.projectFilter);
 }

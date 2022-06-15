@@ -52,7 +52,7 @@ List<IsarLinkBase> _projectGetLinks(Project object) {
   return [object.tasks];
 }
 
-const _projectProjectTatusConverter = ProjectTatusConverter();
+const _projectProjectStatusConverter = ProjectStatusConverter();
 
 void _projectSerializeNative(
     IsarCollection<Project> collection,
@@ -67,7 +67,7 @@ void _projectSerializeNative(
   final value1 = object.name;
   final _name = IsarBinaryWriter.utf8Encoder.convert(value1);
   dynamicSize += (_name.length) as int;
-  final value2 = _projectProjectTatusConverter.toIsar(object.status);
+  final value2 = _projectProjectStatusConverter.toIsar(object.status);
   final _status = value2;
   final size = staticSize + dynamicSize;
 
@@ -87,7 +87,7 @@ Project _projectDeserializeNative(IsarCollection<Project> collection, int id,
   object.id = id;
   object.name = reader.readString(offsets[1]);
   object.status =
-      _projectProjectTatusConverter.fromIsar(reader.readLong(offsets[2]));
+      _projectProjectStatusConverter.fromIsar(reader.readLong(offsets[2]));
   _projectAttachLinks(collection, id, object);
   return object;
 }
@@ -102,7 +102,7 @@ P _projectDeserializePropNative<P>(
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
-      return (_projectProjectTatusConverter.fromIsar(reader.readLong(offset)))
+      return (_projectProjectStatusConverter.fromIsar(reader.readLong(offset)))
           as P;
     default:
       throw 'Illegal propertyIndex';
@@ -116,7 +116,7 @@ dynamic _projectSerializeWeb(
   IsarNative.jsObjectSet(jsObj, 'id', object.id);
   IsarNative.jsObjectSet(jsObj, 'name', object.name);
   IsarNative.jsObjectSet(
-      jsObj, 'status', _projectProjectTatusConverter.toIsar(object.status));
+      jsObj, 'status', _projectProjectStatusConverter.toIsar(object.status));
   return jsObj;
 }
 
@@ -127,7 +127,7 @@ Project _projectDeserializeWeb(
       IsarNative.jsObjectGet(jsObj, 'estimate') ?? double.negativeInfinity;
   object.id = IsarNative.jsObjectGet(jsObj, 'id');
   object.name = IsarNative.jsObjectGet(jsObj, 'name') ?? '';
-  object.status = _projectProjectTatusConverter.fromIsar(
+  object.status = _projectProjectStatusConverter.fromIsar(
       IsarNative.jsObjectGet(jsObj, 'status') ?? double.negativeInfinity);
   _projectAttachLinks(collection, IsarNative.jsObjectGet(jsObj, 'id'), object);
   return object;
@@ -143,7 +143,7 @@ P _projectDeserializePropWeb<P>(Object jsObj, String propertyName) {
     case 'name':
       return (IsarNative.jsObjectGet(jsObj, 'name') ?? '') as P;
     case 'status':
-      return (_projectProjectTatusConverter.fromIsar(
+      return (_projectProjectStatusConverter.fromIsar(
           IsarNative.jsObjectGet(jsObj, 'status') ??
               double.negativeInfinity)) as P;
     default:
@@ -429,7 +429,7 @@ extension ProjectQueryFilter
     return addFilterConditionInternal(FilterCondition(
       type: ConditionType.eq,
       property: 'status',
-      value: _projectProjectTatusConverter.toIsar(value),
+      value: _projectProjectStatusConverter.toIsar(value),
     ));
   }
 
@@ -441,7 +441,7 @@ extension ProjectQueryFilter
       type: ConditionType.gt,
       include: include,
       property: 'status',
-      value: _projectProjectTatusConverter.toIsar(value),
+      value: _projectProjectStatusConverter.toIsar(value),
     ));
   }
 
@@ -453,7 +453,7 @@ extension ProjectQueryFilter
       type: ConditionType.lt,
       include: include,
       property: 'status',
-      value: _projectProjectTatusConverter.toIsar(value),
+      value: _projectProjectStatusConverter.toIsar(value),
     ));
   }
 
@@ -465,9 +465,9 @@ extension ProjectQueryFilter
   }) {
     return addFilterConditionInternal(FilterCondition.between(
       property: 'status',
-      lower: _projectProjectTatusConverter.toIsar(lower),
+      lower: _projectProjectStatusConverter.toIsar(lower),
       includeLower: includeLower,
-      upper: _projectProjectTatusConverter.toIsar(upper),
+      upper: _projectProjectStatusConverter.toIsar(upper),
       includeUpper: includeUpper,
     ));
   }

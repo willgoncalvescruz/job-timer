@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,8 +35,10 @@ class ButtonWithLoader<B extends StateStreamable<S>, S>
               Text(label),
               const Align(
                 alignment: Alignment.centerRight,
-                child: CircularProgressIndicator.adaptive(
-                  backgroundColor: Colors.white,
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.transparent,
+                  color: Colors.white,
+                  strokeWidth: 6,
                 ),
               )
             ],

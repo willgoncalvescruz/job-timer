@@ -17,4 +17,5 @@ class Project {
   late ProjectStatus status;
 
   final tasks = IsarLinks<ProjectTask>();
-}
+
+ }

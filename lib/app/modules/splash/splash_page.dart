@@ -1,25 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:job_timer/app/core/ui/job_timer_icons.dart';
+import 'package:job_timer/app/services/auth/auth_service.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   @override
   State<SplashPage> createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
+
   @override
   void initState() {
     super.initState();
-
-    // Modular.get<AuthService>().signOut();
+    Modular.get<AuthService>().signOut();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        Modular.to.navigate('/login/');
-      } else {
-        Modular.to.navigate('/home/');
+      if(user == null){
+        Modular.to.navigate('/login');
+      }else {
+        Modular.to.navigate('/home');
       }
     });
   }
@@ -30,12 +32,10 @@ class _SplashPageState extends State<SplashPage> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF0092B9),
-              Color(0xFF0167B2),
-            ],
+              colors: [
+                Color(0XFF0092B9),
+                Color(0XFF0167B2),
+              ],
           ),
         ),
         child: Center(

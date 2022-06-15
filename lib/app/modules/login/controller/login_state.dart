@@ -1,10 +1,7 @@
+
 part of 'login_controller.dart';
 
-enum LoginStatus {
-  initial,
-  loading,
-  failure,
-}
+enum LoginStatus { initial, loading, failure }
 
 class LoginState extends Equatable {
   final LoginStatus status;
@@ -12,8 +9,8 @@ class LoginState extends Equatable {
 
   const LoginState._({
     required this.status,
-    this.errorMessage,
-  });
+    this.errorMessage
+});
 
   const LoginState.initial() : this._(status: LoginStatus.initial);
 
@@ -23,10 +20,13 @@ class LoginState extends Equatable {
   LoginState copyWith({
     LoginStatus? status,
     String? errorMessage,
-  }) {
+}) {
     return LoginState._(
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
+
+
+
 }

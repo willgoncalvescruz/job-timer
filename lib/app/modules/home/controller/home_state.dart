@@ -1,22 +1,19 @@
 part of 'home_controller.dart';
 
 enum HomeStatus {
-  initial,
-  loading,
-  complete,
-  failure;
+  initial, loading,  complete,  failure;
 }
 
 class HomeState extends Equatable {
-  final List<ProjectModel> projects;
-  final HomeStatus status;
-  final ProjectStatus projectFilter;
+    final List<ProjectModel> projects;
+    final HomeStatus status;
+    final ProjectStatus projectFilter;
 
-  const HomeState._({
-    required this.projects,
-    required this.projectFilter,
-    required this.status,
-  });
+    const HomeState._({
+      required this.projects,
+      required this.status,
+      required this.projectFilter,
+    });
 
   HomeState.initial()
       : this._(
@@ -25,11 +22,14 @@ class HomeState extends Equatable {
           status: HomeStatus.initial,
         );
 
+  @override
+  List<Object?> get props => [projects, status, projectFilter];
+
   HomeState copyWith({
     List<ProjectModel>? projects,
     HomeStatus? status,
     ProjectStatus? projectFilter,
-  }) {
+}) {
     return HomeState._(
       projects: projects ?? this.projects,
       status: status ?? this.status,
@@ -37,7 +37,4 @@ class HomeState extends Equatable {
     );
   }
 
-////obs
-  @override
-  List<Object?> get props => [projects, status, projectFilter];
 }

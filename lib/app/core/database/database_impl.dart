@@ -6,19 +6,22 @@ import '../../entities/project.dart';
 import './database.dart';
 
 class DatabaseImpl implements Database {
+
   Isar? _databaseInstance;
 
   @override
   Future<Isar> openConnection() async {
-    if (_databaseInstance == null) {
+
+    if(_databaseInstance == null){
       final dir = await getApplicationSupportDirectory();
       _databaseInstance = await Isar.open(
-        schemas: [ProjectTaskSchema, ProjectSchema],
-        directory: dir.path,
-        inspector: true,
+          schemas: [ProjectTaskSchema, ProjectSchema],
+          directory: dir.path,
+          inspector: true,
       );
     }
 
     return _databaseInstance!;
+
   }
 }

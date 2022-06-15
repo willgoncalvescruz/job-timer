@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_timer/app/core/ui/job_timer_icons.dart';
 import 'package:job_timer/app/entities/project_status.dart';
 import 'package:job_timer/app/modules/project/detail/controller/project_detail_controller.dart';
-import 'package:job_timer/app/modules/project/detail/widgets/project_detail_app_bar.dart';
-import 'package:job_timer/app/modules/project/detail/widgets/project_pie_chart.dart';
-import 'package:job_timer/app/modules/project/detail/widgets/project_task_tile.dart';
+import 'package:job_timer/app/modules/project/detail/widget/project_detail_appbar.dart';
+import 'package:job_timer/app/modules/project/detail/widget/project_pie_chart.dart';
+import 'package:job_timer/app/modules/project/detail/widget/project_task_tile.dart';
 import 'package:job_timer/app/view_models/project_model.dart';
 
 class ProjectDetailPage extends StatelessWidget {
+
   final ProjectDetailController controller;
 
   const ProjectDetailPage({Key? key, required this.controller})
@@ -52,6 +53,7 @@ class ProjectDetailPage extends StatelessWidget {
     );
   }
 
+
   Widget _buidProjectDetail(BuildContext context, ProjectModel projectModel) {
     final totalTask = projectModel.tasks.fold<int>(0, (totalValue, task) {
       return totalValue += task.duration;
@@ -59,24 +61,24 @@ class ProjectDetailPage extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        ProjectDetailAppbar(
-          projectModel: projectModel,
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0, bottom: 50),
-              child: ProjectPieChart(
-                  projectEstimate: projectModel.estimate, totalTask: totalTask),
+        ProjectDetailAppbar(projectModel: projectModel,),
+        SliverList(delegate: SliverChildListDelegate([
+          Padding(
+            padding: const EdgeInsets.only(top: 50.0, bottom: 50),
+            child: ProjectPieChart(
+                projectEstimate: projectModel.estimate,
+                totalTask: totalTask
             ),
-            ...projectModel.tasks
-                .map(
-                  (task) => ProjectTaskTile(
-                    task: task,
-                  ),
-                )
-                .toList(),
-          ]),
+          ),
+          ...projectModel.tasks
+              .map(
+                (task) =>
+                ProjectTaskTile(
+                  task: task,
+                ),
+          )
+              .toList(),
+        ]),
         ),
         SliverFillRemaining(
           hasScrollBody: false,
@@ -99,4 +101,5 @@ class ProjectDetailPage extends StatelessWidget {
       ],
     );
   }
+
 }

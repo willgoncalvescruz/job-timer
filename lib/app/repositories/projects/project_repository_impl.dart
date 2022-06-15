@@ -1,12 +1,9 @@
 import 'dart:developer';
-
 import 'package:isar/isar.dart';
 import 'package:job_timer/app/core/database/database.dart';
-import 'package:job_timer/app/core/exceptions/failure.dart';
 import 'package:job_timer/app/entities/project.dart';
 import 'package:job_timer/app/entities/project_status.dart';
 import 'package:job_timer/app/entities/project_task.dart';
-import 'package:job_timer/app/repositories/projects/project_repository.dart';
 import '../../core/exceptions/failure.dart';
 import './project_repository.dart';
 
@@ -19,7 +16,6 @@ class ProjectRepositoryImpl implements ProjectRepository {
   Future<void> register(Project project) async {
     try {
       final connection = await _database.openConnection();
-      // await connection.clear();
       await connection.writeTxn((isar) {
         return isar.projects.put(project);
       });

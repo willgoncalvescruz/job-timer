@@ -1,16 +1,19 @@
+import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:asuka/snackbars/asuka_snack_bar.dart';
-
-import 'package:job_timer/app/modules/home/widgets/project_tile.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:job_timer/app/entities/project_status.dart';
+import 'package:job_timer/app/core/database/database.dart';
+import 'package:job_timer/app/entities/project.dart';
 import 'package:job_timer/app/modules/home/controller/home_controller.dart';
 import 'package:job_timer/app/modules/home/widgets/header_projects_menu.dart';
+import 'package:job_timer/app/modules/home/widgets/project_tile.dart';
 import 'package:job_timer/app/view_models/project_model.dart';
 
 class HomePage extends StatelessWidget {
   final HomeController controller;
 
-  const HomePage({Key? key, required this.controller}) : super(key: key);
+  const HomePage({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +21,15 @@ class HomePage extends StatelessWidget {
       bloc: controller,
       listener: (context, state) {
         if (state.status == HomeStatus.failure) {
-          AsukaSnackbar.alert('Error ao carregar projetos').show();
+          AsukaSnackbar.alert('Erro ao buscar projetos').show();
         }
       },
       child: Scaffold(
         drawer: const Drawer(
           child: SafeArea(
-            child: ListTile(
-              title: Text('Sair'),
-            ),
-          ),
+              child: ListTile(
+            title: Text('Sair'),
+          )),
         ),
         body: SafeArea(
           child: CustomScrollView(
@@ -38,9 +40,8 @@ class HomePage extends StatelessWidget {
                 toolbarHeight: 100,
                 centerTitle: true,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(15),
-                  ),
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(30)),
                 ),
               ),
               SliverPersistentHeader(
@@ -48,21 +49,21 @@ class HomePage extends StatelessWidget {
                 pinned: true,
               ),
               BlocSelector<HomeController, HomeState, bool>(
-                  bloc: controller,
-                  selector: (state) => state.status == HomeStatus.loading,
-                  builder: (context, showLoading) {
-                    return SliverVisibility(
-                      visible: showLoading,
-                      sliver: const SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 50,
-                          child: Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          ),
-                        ),
+                bloc: controller,
+                selector: (state) => state.status == HomeStatus.loading,
+                builder: (context, showLoading) {
+                  return SliverVisibility(
+                    visible: showLoading,
+                    sliver: const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 50,
+                        child:
+                            Center(child: CircularProgressIndicator.adaptive()),
                       ),
-                    );
-                  }),
+                    ),
+                  );
+                },
+              ),
               BlocSelector<HomeController, HomeState, List<ProjectModel>>(
                 bloc: controller,
                 selector: (state) => state.projects,
@@ -77,7 +78,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-              ),
+              )
             ],
           ),
         ),

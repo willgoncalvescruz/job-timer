@@ -11,16 +11,16 @@ part 'home_state.dart';
 class HomeController extends Cubit<HomeState> {
   final ProjectService _projectService;
 
-  HomeController({required ProjectService projectService})
-      : _projectService = projectService,
-        super(HomeState.initial());
+  HomeController({required ProjectService projectService}) :
+    _projectService = projectService,
+    super(HomeState.initial());
 
   Future<void> loadProjects() async {
     try {
       emit(state.copyWith(status: HomeStatus.loading));
       final projects = await _projectService.findByStatus(state.projectFilter);
       emit(state.copyWith(status: HomeStatus.complete, projects: projects));
-    } on Exception catch (e, s) {
+    } catch (e, s) {
       log('Erro ao buscar os projetos', error: e, stackTrace: s);
       emit(state.copyWith(status: HomeStatus.failure));
     }
@@ -28,13 +28,13 @@ class HomeController extends Cubit<HomeState> {
 
   Future<void> filter(ProjectStatus status) async {
     emit(state.copyWith(status: HomeStatus.loading, projects: []));
-
     final projects = await _projectService.findByStatus(status);
     emit(state.copyWith(
       status: HomeStatus.complete,
       projects: projects,
       projectFilter: status,
-    ));
+      ),
+    );
   }
 
   void updateList() => filter(state.projectFilter);

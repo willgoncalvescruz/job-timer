@@ -10,7 +10,6 @@ import 'package:job_timer/app/modules/project/detail/widget/project_task_tile.da
 import 'package:job_timer/app/view_models/project_model.dart';
 
 class ProjectDetailPage extends StatelessWidget {
-
   final ProjectDetailController controller;
 
   const ProjectDetailPage({Key? key, required this.controller})
@@ -53,7 +52,6 @@ class ProjectDetailPage extends StatelessWidget {
     );
   }
 
-
   Widget _buidProjectDetail(BuildContext context, ProjectModel projectModel) {
     final totalTask = projectModel.tasks.fold<int>(0, (totalValue, task) {
       return totalValue += task.duration;
@@ -61,24 +59,24 @@ class ProjectDetailPage extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        ProjectDetailAppbar(projectModel: projectModel,),
-        SliverList(delegate: SliverChildListDelegate([
-          Padding(
-            padding: const EdgeInsets.only(top: 50.0, bottom: 50),
-            child: ProjectPieChart(
-                projectEstimate: projectModel.estimate,
-                totalTask: totalTask
+        ProjectDetailAppbar(
+          projectModel: projectModel,
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0, bottom: 50),
+              child: ProjectPieChart(
+                  projectEstimate: projectModel.estimate, totalTask: totalTask),
             ),
-          ),
-          ...projectModel.tasks
-              .map(
-                (task) =>
-                ProjectTaskTile(
-                  task: task,
-                ),
-          )
-              .toList(),
-        ]),
+            ...projectModel.tasks
+                .map(
+                  (task) => ProjectTaskTile(
+                    task: task,
+                  ),
+                )
+                .toList(),
+          ]),
         ),
         SliverFillRemaining(
           hasScrollBody: false,
@@ -92,7 +90,7 @@ class ProjectDetailPage extends StatelessWidget {
                     onPressed: () {
                       controller.finishProject();
                     },
-                    icon: const Icon(JobTimericons.ok_circled2),
+                    icon: const Icon(JobTimericons.okCircled2),
                     label: const Text('Finalizar Projeto')),
               ),
             ),
@@ -101,5 +99,4 @@ class ProjectDetailPage extends StatelessWidget {
       ],
     );
   }
-
 }

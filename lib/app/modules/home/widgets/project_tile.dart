@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:job_timer/app/core/ui/job_timer_icons.dart';
 import 'package:job_timer/app/modules/home/controller/home_controller.dart';
 import 'package:job_timer/app/view_models/project_model.dart';
@@ -38,7 +39,10 @@ class ProjectTile extends StatelessWidget {
 
 class _ProjectName extends StatelessWidget {
   final ProjectModel projectModel;
-  const _ProjectName({super.key, required this.projectModel});
+  const _ProjectName({
+    Key? key,
+    required this.projectModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class _ProjectName extends StatelessWidget {
         children: [
           Text(projectModel.name),
           Icon(
-            JobTimericons.angle_double_right,
+            JobTimericons.angleDoubleRight,
             color: Theme.of(context).primaryColor,
             size: 20,
           )
@@ -62,7 +66,10 @@ class _ProjectName extends StatelessWidget {
 class _ProjectProgress extends StatelessWidget {
   final ProjectModel projectModel;
 
-  const _ProjectProgress({super.key, required this.projectModel});
+  const _ProjectProgress({
+    Key? key,
+    required this.projectModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

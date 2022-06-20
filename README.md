@@ -4,7 +4,7 @@
   <img alt="Splash" title="#Splash" src="./assets/images/logo.png" width="200"/></h1>
 <h1 align="center">
     <a href="https://pub.dev/">Flutter</a></h1>
-	<p align="center">🚀 Aplicativo para Gerenciar tempo de projetos com stacks, tecnologias utilizadas (Flutter, Firebase Login, Bloc, Modular, Banco de dados Isar)...</p>
+	<p align="center">🚀 Aplicativo para Gerenciar tempo de projetos com tasks, tecnologias utilizadas (Flutter, Firebase Login, Bloc, Modular, Banco de dados Isar)...</p>
 <div>	
 
 <p align="center">
@@ -22,7 +22,7 @@
  </p>
 
 ## Experiencia
-Com este projeto pude desenvolver um app para criar projetos e gerenciar tempo através do registro de tasks.
+Com este projeto pude desenvolver um app para criar projetos e gerenciar Projetos através do registro de tasks.
 ### Features
 - [x] Acesso para novo usuário realizar login
 - [x] Cadastro de novos projetos e tasks
@@ -38,9 +38,8 @@ Com este projeto pude desenvolver um app para criar projetos e gerenciar tempo a
 <h1 align="center">
   <img alt="Splash" title="#Splash" src="./assets/images/acessar.png" width="200"/>
   <img alt="Login" title="#Login" src="./assets/images/login.png" width="200"/>
-  <img alt="Cadastro" title="#Cadastro" src="./assets/images/sair.png" width="200"/>
   <img alt="Projetos" title="#Projetos" src="./assets/images/criarprojeto.png" width="200"/>
-  <img alt="Adcionar" title="#Adcionar" src="./assets/images/criartask.png" width="200"/>
-  <img alt="Adcionar" title="#Adcionar" src="./assets/images/projetos.png" width="200"/>
-  <img alt="Carrinho" title="#Carrinho" src="./assets/images/projetodetalhe.png" width="200"/>
+  <img alt="Task" title="#Adcionar" src="./assets/images/criartask.png" width="200"/>
+  <img alt="Projetos" title="#Adcionar" src="./assets/images/projetos.png" width="200"/>
+  <img alt="Detalhes" title="#Carrinho" src="./assets/images/projetodetalhe.png" width="200"/>
 </h1>

@@ -4,7 +4,7 @@
   <img alt="Splash" title="#Splash" src="./assets/images/logo.png" width="200"/></h1>
 <h1 align="center">
     <a href="https://pub.dev/">Flutter</a></h1>
-	<p align="center">🚀 Aplicativo para Gerenciar tempo de projetos com tasks, tecnologias utilizadas (Flutter, Firebase Login, Bloc, Modular, Banco de dados Isar)...</p>
+	<p align="center">🚀 Aplicativo para Gerenciar tempo de projetos com tasks.</p>
 <div>	
 
 <p align="center">
@@ -22,7 +22,7 @@
  </p>
 
 ## Experiencia
-Com este projeto pude desenvolver um app para criar projetos e gerenciar Projetos através do registro de tasks.
+Com este projeto pude desenvolver um app para criar projetos e gerenciar Projetos através do registro de tasks. Entre tantas coisas, aprendi sobre construção de estrutura e padrões de desenvolvimento esvalável, produtividade, realizar login via codigo no Firebase Login, uso dos conceitos de Bloc, Modular, criação e testes de Banco de dados com Isar...
 ### Features
 - [x] Acesso para novo usuário realizar login
 - [x] Cadastro de novos projetos e tasks

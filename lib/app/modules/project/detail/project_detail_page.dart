@@ -1,4 +1,4 @@
-import 'package:asuka/asuka.dart';
+import 'package:asuka/asuka.dart' as asuka;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:job_timer/app/core/ui/job_timer_icons.dart';
@@ -22,11 +22,12 @@ class ProjectDetailPage extends StatelessWidget {
         bloc: controller,
         listener: (context, state) {
           if (state.status == ProjectDetailStatus.failure) {
-            AsukaSnackbar.alert('Erro interno');
+            asuka.AsukaSnackbar.alert('Erro interno');
           }
         },
         builder: (context, state) {
           final projectModel = state.projectModel;
+
           switch (state.status) {
             case ProjectDetailStatus.initial:
               return const Center(
@@ -37,46 +38,47 @@ class ProjectDetailPage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             case ProjectDetailStatus.complete:
-              return _buidProjectDetail(context, projectModel!);
+              return _buildProjectDetail(context, projectModel!);
             case ProjectDetailStatus.failure:
               if (projectModel != null) {
-                return _buidProjectDetail(context, projectModel);
+                return _buildProjectDetail(context, projectModel);
               }
+
               return const Center(
                 child: Text('Erro ao carregar projeto'),
               );
           }
-          return _buidProjectDetail(context, projectModel!);
         },
       ),
     );
   }
 
-  Widget _buidProjectDetail(BuildContext context, ProjectModel projectModel) {
-    final totalTask = projectModel.tasks.fold<int>(0, (totalValue, task) {
-      return totalValue += task.duration;
-    });
+  Widget _buildProjectDetail(BuildContext context, ProjectModel projectModel) {
+    final totalTask = projectModel.tasks.fold<int>(
+      0,
+      (totalValue, task) {
+        return totalValue += task.duration;
+      },
+    );
 
     return CustomScrollView(
       slivers: [
         ProjectDetailAppbar(
           projectModel: projectModel,
         ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 50.0, bottom: 50),
+            child: ProjectPieChart(
+                projectEstimate: projectModel.estimate, totalTask: totalTask),
+          ),
+        ),
         SliverList(
-          delegate: SliverChildListDelegate([
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0, bottom: 50),
-              child: ProjectPieChart(
-                  projectEstimate: projectModel.estimate, totalTask: totalTask),
-            ),
-            ...projectModel.tasks
-                .map(
-                  (task) => ProjectTaskTile(
-                    task: task,
-                  ),
-                )
-                .toList(),
-          ]),
+          delegate: SliverChildBuilderDelegate(
+            childCount: projectModel.tasks.length,
+            (context, index) =>
+                ProjectTaskTile(task: projectModel.tasks[index]),
+          ),
         ),
         SliverFillRemaining(
           hasScrollBody: false,
@@ -87,16 +89,45 @@ class ProjectDetailPage extends StatelessWidget {
               child: Visibility(
                 visible: projectModel.status != ProjectStatus.finalizado,
                 child: ElevatedButton.icon(
-                    onPressed: () {
-                      controller.finishProject();
-                    },
-                    icon: const Icon(JobTimericons.okCircled2),
-                    label: const Text('Finalizar Projeto')),
+                  onPressed: () {
+                    _confirmFinishProject(context);
+                  },
+                  icon: const Icon(JobTimericons.okCircled2),
+                  label: const Text('Finalizar Projeto'),
+                ),
               ),
             ),
           ),
         )
       ],
     );
+  }
+
+  void _confirmFinishProject(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Confirma a finalização do projeto?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancelar'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  controller.finishProject();
+                },
+                child: Text(
+                  'Confirmar',
+                  style: TextStyle(color: Colors.red),
+                ),
+              )
+            ],
+          );
+        });
   }
 }

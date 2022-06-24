@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:job_timer/app/services/auth/auth_service.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -14,7 +13,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Modular.get<AuthService>().signOut();
+    //ir sempre para tela de splash sem estar logado
+    //Modular.get<AuthService>().signOut();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         Modular.to.navigate('/login');

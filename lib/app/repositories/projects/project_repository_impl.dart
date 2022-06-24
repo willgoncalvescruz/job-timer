@@ -16,6 +16,7 @@ class ProjectRepositoryImpl implements ProjectRepository {
   Future<void> register(Project project) async {
     try {
       final connection = await _database.openConnection();
+
       await connection.writeTxn((isar) {
         return isar.projects.put(project);
       });
@@ -28,6 +29,7 @@ class ProjectRepositoryImpl implements ProjectRepository {
   @override
   Future<List<Project>> findByStatus(ProjectStatus status) async {
     final connection = await _database.openConnection();
+
     final projects =
         await connection.projects.filter().statusEqualTo(status).findAll();
 
@@ -40,7 +42,9 @@ class ProjectRepositoryImpl implements ProjectRepository {
     final project = await findById(projectId);
 
     project.tasks.add(task);
+
     await connection.writeTxn((isar) => project.tasks.save());
+
     return project;
   }
 

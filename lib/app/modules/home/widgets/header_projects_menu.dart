@@ -24,8 +24,8 @@ class HeaderProjectsMenu extends SliverPersistentHeaderDelegate {
                   child: DropdownButtonFormField<ProjectStatus>(
                     value: ProjectStatus.emAndamento,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         contentPadding: const EdgeInsets.all(10),
                         isCollapsed: true),

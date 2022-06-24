@@ -12,20 +12,22 @@ import 'package:job_timer/app/services/auth/auth_service_impl.dart';
 import 'package:job_timer/app/services/projects/project_service.dart';
 import 'package:job_timer/app/services/projects/project_service_impl.dart';
 
-class AppModule extends Module{
+class AppModule extends Module {
   @override
   List<Bind> get binds => [
-    Bind.lazySingleton<AuthService>((i) => AuthServiceImpl()),
-    Bind.lazySingleton<Database>((i) => DatabaseImpl()),
-    Bind.lazySingleton<ProjectRepository>((i) => ProjectRepositoryImpl(database: i())),
-    Bind.lazySingleton<ProjectService>((i) => ProjectServiceImpl(projectRepository: i())),
-  ];
+        Bind.lazySingleton<Database>((i) => DatabaseImpl()),
+        Bind.lazySingleton<AuthService>((i) => AuthServiceImpl(database: i())),
+        Bind.lazySingleton<ProjectRepository>(
+            (i) => ProjectRepositoryImpl(database: i())),
+        Bind.lazySingleton<ProjectService>(
+            (i) => ProjectServiceImpl(projectRepository: i())),
+      ];
 
   @override
   List<ModularRoute> get routes => [
-    ChildRoute('/', child: (context, args) => const SplashPage()),
-    ModuleRoute('/login', module: LoginModule()),
-    ModuleRoute('/home', module: HomeModule()),
-    ModuleRoute('/project', module: ProjectModule()),
-  ];
+        ChildRoute('/', child: (context, args) => const SplashPage()),
+        ModuleRoute('/login', module: LoginModule()),
+        ModuleRoute('/home', module: HomeModule()),
+        ModuleRoute('/project', module: ProjectModule()),
+      ];
 }
